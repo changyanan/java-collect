@@ -1,0 +1,31 @@
+server:
+  port: 8888
+  undertow:
+    # 下面是配置undertow作为服务器的参数
+    io-threads: 4
+      # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+    worker-threads: 20
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 1024
+      # 是否分配的直接内存
+    direct-buffers: true
+
+spring:
+  application:
+    name: itook
+
+  profiles:
+    active: dev
+    include:
+      - mybatis
+      - redis
+
+  cloud:
+    config:
+      enabled: true
+      name: itook
+      allow-override: true
+      override-none: true
+      uri: http://127.0.0.1:7001
+      label: ${spring.profiles.active}
