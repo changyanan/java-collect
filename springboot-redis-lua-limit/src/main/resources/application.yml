@@ -1,0 +1,9 @@
+spring:
+  redis:
+    host: 111.230.6.24
+    port: 6379
+    password: 999999
+  application:
+    name: redis-limit
+server:
+  port: 7001
